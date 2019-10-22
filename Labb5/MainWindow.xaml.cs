@@ -70,5 +70,15 @@ namespace Labb5
         {
 
         }
+
+        private void SetToUser(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SetToAdmin(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

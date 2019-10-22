@@ -14,11 +14,11 @@
         <Button x:Name="btnCreate" Content="Add" HorizontalAlignment="Left" Margin="324,300,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="AddUser"/>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="324,356,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="DeleteUser"/>
         <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="324,328,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="UpdateUser"/>
-        <RadioButton x:Name="rbtnNonAdmin" Content="Regular User" HorizontalAlignment="Left" Margin="458,306,0,0" VerticalAlignment="Top" Checked="RegularUser" IsChecked="True"/>
-        <RadioButton x:Name="rbtnAdmin" Content="Admin User" HorizontalAlignment="Left" Margin="458,334,0,0" VerticalAlignment="Top" Checked="AdminUser"/>
         <Label Content="E mail&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.104,3.539" Margin="43,332,0,0"/>
         <Label Content="Name&#xD;&#xA;" HorizontalAlignment="Left" Margin="44,287,0,0" VerticalAlignment="Top" Height="27"/>
         <Label Content="Users&#xD;&#xA;" HorizontalAlignment="Left" Margin="150,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Admins&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="420,10,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnSetToAdmin" Content="Admin" HorizontalAlignment="Left" Margin="448,300,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="SetToAdmin"/>
+        <Button x:Name="btnSetToUser" Content="Regular User" HorizontalAlignment="Left" Margin="448,328,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="SetToUser"/>
     </Grid>
 </Window>
