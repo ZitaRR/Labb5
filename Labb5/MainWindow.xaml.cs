@@ -32,7 +32,38 @@ namespace Labb5
 
         }
 
-        private void ListBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void lbUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void lbAdmins_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void AddUser(object sender, RoutedEventArgs e)
+        {   
+            //User user = new User().
+            //lbUsers.Items.Add(user);
+        }
+
+        private void UpdateUser(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteUser(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RegularUser(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AdminUser(object sender, RoutedEventArgs e)
         {
 
         }
