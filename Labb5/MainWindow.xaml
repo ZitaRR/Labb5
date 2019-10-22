@@ -6,17 +6,19 @@
         xmlns:local="clr-namespace:Labb5"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="628.4">
-    <Grid Margin="10,10,4.4,23">
-        <ListBox HorizontalAlignment="Left" Height="243" Margin="48,34,0,0" VerticalAlignment="Top" Width="234" SelectionChanged="ListBox_SelectionChanged_1"/>
-        <ListBox HorizontalAlignment="Left" Height="243" Margin="324,34,0,0" VerticalAlignment="Top" Width="234"/>
+    <Grid Margin="10,10,4.4,5">
+        <ListBox x:Name="lbUsers" HorizontalAlignment="Left" Height="243" Margin="48,34,0,0" VerticalAlignment="Top" Width="234" SelectionChanged="lbUsers_SelectionChanged"/>
+        <ListBox x:Name="lbAdmins" HorizontalAlignment="Left" Height="243" Margin="324,34,0,0" VerticalAlignment="Top" Width="234" SelectionChanged="lbAdmins_SelectionChanged"/>
         <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="25" Margin="48,307,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234"/>
         <TextBox x:Name="txtEMail" HorizontalAlignment="Left" Height="25" Margin="48,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234"/>
-        <Button x:Name="btnCreate" Content="Add" HorizontalAlignment="Left" Margin="324,300,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="Button_Click"/>
-        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="324,356,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="Button_Click"/>
-        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="324,328,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="Button_Click"/>
-        <RadioButton x:Name="rbtnNonAdmin" Content="Regular User" HorizontalAlignment="Left" Margin="458,306,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="rbtnAdmin" Content="Admin User" HorizontalAlignment="Left" Margin="458,334,0,0" VerticalAlignment="Top"/>
-        <Label Content="E mail&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.104,3.539" Margin="48,326,0,0"/>
-        <Label Content="Name&#xD;&#xA;" HorizontalAlignment="Left" Margin="48,282,0,0" VerticalAlignment="Top" Height="27"/>
+        <Button x:Name="btnCreate" Content="Add" HorizontalAlignment="Left" Margin="324,300,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="AddUser"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="324,356,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="DeleteUser"/>
+        <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Left" Margin="324,328,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="UpdateUser"/>
+        <RadioButton x:Name="rbtnNonAdmin" Content="Regular User" HorizontalAlignment="Left" Margin="458,306,0,0" VerticalAlignment="Top" Checked="RegularUser" IsChecked="True"/>
+        <RadioButton x:Name="rbtnAdmin" Content="Admin User" HorizontalAlignment="Left" Margin="458,334,0,0" VerticalAlignment="Top" Checked="AdminUser"/>
+        <Label Content="E mail&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.104,3.539" Margin="43,332,0,0"/>
+        <Label Content="Name&#xD;&#xA;" HorizontalAlignment="Left" Margin="44,287,0,0" VerticalAlignment="Top" Height="27"/>
+        <Label Content="Users&#xD;&#xA;" HorizontalAlignment="Left" Margin="150,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Admins&#xD;&#xA;&#xA;" HorizontalAlignment="Left" Margin="420,10,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
