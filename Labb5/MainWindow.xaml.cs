@@ -23,20 +23,38 @@ namespace Labb5
         public MainWindow()
         {
             InitializeComponent();
+            Data.Load();
+
+            lbUsers.ItemsSource = Data.SortNormalUsers();
+            lbAdmins.ItemsSource = Data.SortAdminUsers();
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox listbox = null;
 
-            if ((sender as ListBox).Name == "lbUsers" ||
-                (sender as ListBox).Name == "lbAdmins")
+            if ((sender as ListBox).Name == "lbUsers")
+            {
                 listbox = sender as ListBox;
+                EnableButton(BtnAdmin);
+                DisableButton(BtnNormal);
+            }
+            else if ((sender as ListBox).Name == "lbAdmins")
+            {
+                listbox = sender as ListBox;
+                EnableButton(BtnNormal);
+                DisableButton(BtnAdmin);
+            }
 
             if (listbox.SelectedItem is null)
-                return;
+            {
+                DisableButton(BtnNormal);
+                DisableButton(BtnAdmin);
+                DisableButton(BtnUpdate);
+            }
 
             currentUser = listbox.SelectedItem as User;
+            EnableButton(btnDelete);
             Refresh();
         }
 
@@ -50,11 +68,12 @@ namespace Labb5
 
             string name = txtName.Text;
             string email = txtEMail.Text;
-            User user = new User(name, email);
-            Data.AddUser(user);
+            currentUser = new User(name, email);
+            Data.AddUser(currentUser);
             lbUsers.ItemsSource = Data.SortNormalUsers();
-            txtName.Text = "";
-            txtEMail.Text = "";
+            currentUser = null;
+            Refresh();
+            DisableButton(btnCreate);
         }
 
         private void UpdateUser()
@@ -65,12 +84,27 @@ namespace Labb5
             Data.UpdateUser(currentUser);
             lbUsers.ItemsSource = Data.SortNormalUsers();
             lbAdmins.ItemsSource = Data.SortAdminUsers();
-
-            Refresh();
         }
+
+        private void DisableButton(Button button)
+            => button.IsEnabled = false;
+
+        private void EnableButton(Button button)
+            => button.IsEnabled = true;
 
         private void Refresh()
         {
+            if (currentUser is null)
+            {
+                UserInfoLabel.Content = "";
+                txtName.Text = "";
+                txtEMail.Text = "";
+                lbUsers.SelectedItem = null;
+                lbAdmins.SelectedItem = null;
+                DisableButton(btnDelete);
+                return;
+            }
+
             UserInfoLabel.Content = currentUser.Info();
             txtName.Text = currentUser.Name;
             txtEMail.Text = currentUser.Email;
@@ -78,7 +112,11 @@ namespace Labb5
 
         private void DeleteUser(object sender, RoutedEventArgs e)
         {
-
+            Data.DeleteUser(currentUser);
+            UpdateUser();
+            currentUser = null;
+            DisableButton(btnDelete);
+            Refresh();
         }
 
         private void BtnNormal_Click(object sender, RoutedEventArgs e)
@@ -105,6 +143,33 @@ namespace Labb5
             currentUser.Name = txtName.Text;
             currentUser.Email = txtEMail.Text;
             UpdateUser();
+            Refresh();
+            DisableButton(BtnUpdate);
+        }
+
+        private void TextChanged(object sender, TextChangedEventArgs e)
+        {
+            User user = lbUsers.SelectedItem as User;
+            if (user is null)
+                user = lbAdmins.SelectedItem as User;
+
+            if (!(user is null))
+            {
+                if (Data.GetUserByEmail(txtEMail.Text) is null)
+                    goto EmailDoesNotExist;
+                DisableButton(btnCreate);
+                if (user.Name != txtName.Text && txtName.Text != "")
+                    EnableButton(BtnUpdate);
+                else DisableButton(BtnUpdate);
+                return;
+            }
+
+            EmailDoesNotExist:
+            if (txtName.Text != "" && txtEMail.Text != "")
+            {
+                EnableButton(btnCreate);
+                DisableButton(BtnUpdate);
+            }
         }
     }
 }

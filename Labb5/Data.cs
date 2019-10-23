@@ -26,7 +26,8 @@ namespace Labb5
                 return null;
 
             string json = File.ReadAllText(Path);
-            return JsonConvert.DeserializeObject<List<User>>(json);
+            Users = JsonConvert.DeserializeObject<List<User>>(json);
+            return Users;
         }
 
         public static User AddUser(User user)
@@ -37,6 +38,30 @@ namespace Labb5
             Save();
 
             return user;
+        }
+
+        public static User GetUserByEmail(string email)
+        {
+            foreach (User _user in Users)
+            {
+                if (_user.Email == email)
+                    return _user;
+            }
+            return null;
+        }
+
+        public static bool DeleteUser(User user)
+        {
+            for (int i = 0; i < Users.Count; i++)
+            {
+                if (Users[i].ID == user.ID)
+                {
+                    Users.Remove(user);
+                    Save();
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static User UpdateUser(User user)
