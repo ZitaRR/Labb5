@@ -24,7 +24,7 @@ namespace Labb5
         {
             InitializeComponent();
             Data.Load();
-
+            lbUsers.SelectionChanged += ListBox_SelectionChanged;
             lbUsers.ItemsSource = Data.SortNormalUsers();
             lbAdmins.ItemsSource = Data.SortAdminUsers();
         }
