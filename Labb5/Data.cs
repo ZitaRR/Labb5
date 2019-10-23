@@ -38,5 +38,41 @@ namespace Labb5
 
             return user;
         }
+
+        public static User UpdateUser(User user)
+        {
+            for (int i = 0; i < Users.Count; i++)
+            {
+                if (Users[i].ID == user.ID)
+                {
+                    Users[i] = user;
+                    Save();
+                    return Users[i];
+                }
+            }
+            return null;
+        }
+
+        public static List<User> SortNormalUsers()
+        {
+            List<User> users = new List<User>();
+            foreach (User user in Users)
+            {
+                if (user.Permission == User.Permissions.Normal)
+                    users.Add(user);
+            }
+            return users;
+        }
+
+        public static List<User> SortAdminUsers()
+        {
+            List<User> users = new List<User>();
+            foreach (User user in Users)
+            {
+                if (user.Permission == User.Permissions.Admin)
+                    users.Add(user);
+            }
+            return users;
+        }
     }
 }

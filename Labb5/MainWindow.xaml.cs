@@ -27,19 +27,17 @@ namespace Labb5
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ListBox).Name == "lbUsers")
-            {
-                if (lbUsers.SelectedItem is null)
-                    return;
+            ListBox listbox = null;
 
-                currentUser = lbUsers.SelectedItem as User;
-                txtName.Text = currentUser.Name;
-                txtEMail.Text = currentUser.Email;
-            }
-            else if ((sender as ListBox).Name == "lbAdmins")
-            {
+            if ((sender as ListBox).Name == "lbUsers" ||
+                (sender as ListBox).Name == "lbAdmins")
+                listbox = sender as ListBox;
 
-            }
+            if (listbox.SelectedItem is null)
+                return;
+
+            currentUser = listbox.SelectedItem as User;
+            Refresh();
         }
 
         private void AddUser(object sender, RoutedEventArgs e)
@@ -54,15 +52,28 @@ namespace Labb5
             string email = txtEMail.Text;
             User user = new User(name, email);
             Data.AddUser(user);
-            List<User> users = Data.Load();
-            lbUsers.ItemsSource = users;
+            lbUsers.ItemsSource = Data.SortNormalUsers();
             txtName.Text = "";
             txtEMail.Text = "";
         }
 
-        private void UpdateUser(object sender, RoutedEventArgs e)
+        private void UpdateUser()
         {
-            
+            if (currentUser is null)
+                return;
+
+            Data.UpdateUser(currentUser);
+            lbUsers.ItemsSource = Data.SortNormalUsers();
+            lbAdmins.ItemsSource = Data.SortAdminUsers();
+
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            UserInfoLabel.Content = currentUser.Info();
+            txtName.Text = currentUser.Name;
+            txtEMail.Text = currentUser.Email;
         }
 
         private void DeleteUser(object sender, RoutedEventArgs e)
@@ -70,24 +81,30 @@ namespace Labb5
 
         }
 
-        private void RegularUser(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void AdminUser(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void BtnNormal_Click(object sender, RoutedEventArgs e)
         {
-
+            currentUser.Permission = User.Permissions.Normal;
+            UpdateUser();
         }
 
         private void BtnAdmin_Click(object sender, RoutedEventArgs e)
         {
+            currentUser.Permission = User.Permissions.Admin;
+            UpdateUser();
+        }
 
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtName.Text is "")
+                return;
+            if (txtEMail.Text is "")
+                return;
+            if (txtName.Text == currentUser.Name && txtEMail.Text == currentUser.Email)
+                return;
+
+            currentUser.Name = txtName.Text;
+            currentUser.Email = txtEMail.Text;
+            UpdateUser();
         }
     }
 }
