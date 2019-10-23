@@ -18,9 +18,11 @@ namespace Labb5
         {
             TotalUsers++;
             ID = TotalUsers;
-
             Name = name;
             Email = email;
         }
+
+        public override string ToString()
+            => $"{Name}";
     }
 }

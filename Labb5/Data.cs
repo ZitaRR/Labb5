@@ -11,13 +11,13 @@ namespace Labb5
     public static class Data
     {
         public static string Path { get; private set; } =
-            Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"users.json";
+            Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"\users.json";
         public static List<User> Users { get; private set; } = new List<User>();
 
         public static void Save()
         {
             string json = JsonConvert.SerializeObject(Users, Formatting.Indented);
-            File.WriteAllText(json, Path);
+            File.WriteAllText(Path, json);
         }
 
         public static List<User> Load()
@@ -29,14 +29,14 @@ namespace Labb5
             return JsonConvert.DeserializeObject<List<User>>(json);
         }
 
-        public static bool AddUser(User user)
+        public static User AddUser(User user)
         {
             if (user is null)
-                return false;
+                return null;
             Users.Add(user);
             Save();
 
-            return true;
+            return user;
         }
     }
 }
